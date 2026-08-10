@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UPCH - Elementos de Química | Clase 2</title>
+    <style>
+        /* ===== VARIABLES Y RESET ===== */
+        :root {
+            --upch-gold: #E8B800;
+            --upch-dark: #0B2A3A;
+            --upch-blue: #1A4A5A;
+            --upch-light: #2A6A7A;
+            --accent: #E94560;
+            --text: #1e3c4a;
+            --white: #ffffff;
+            --sand: #f4e9c1;
+            --shadow: rgba(0, 0, 0, 0.15);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f0f2 0%, #c8d8dc 100%);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, var(--upch-dark) 0%, var(--upch-light) 100%);
+            color: var(--white);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 6px 20px var(--shadow);
+            border-bottom: 5px solid var(--upch-gold);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+        .logo-upch {
+            width: 120px;
+            height: auto;
+            background: var(--white);
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.2rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            color: var(--upch-gold);
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        /* ===== NAV ===== */
+        .nav-container {
+            background: var(--upch-dark);
+            padding: 0.8rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .nav-btn {
+            background: var(--white);
+            color: var(--upch-dark);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            font-size: 0.95rem;
+        }
+        .nav-btn:hover,
+        .nav-btn.active {
+            background: var(--upch-gold);
+            color: var(--upch-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        /* ===== CONTENEDOR ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 24px var(--shadow);
+            border-left: 6px solid var(--upch-gold);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        h2 {
+            color: var(--upch-blue);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 3px solid var(--upch-gold);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 2rem;
+        }
+        h3 {
+            color: var(--upch-light);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* ===== CAJAS DE INFORMACIÓN ===== */
+        .info-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 5px solid #2196f3;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .tip-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+            border-left: 5px solid #ffc107;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .bio-box {
+            background: linear-gradient(135deg, #d1ecf1 0%, #a8dadc 100%);
+            border-left: 5px solid #17a2b8;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .pharma-box {
+            background: linear-gradient(135deg, #f8d7da 0%, #f1aeb5 100%);
+            border-left: 5px solid #dc3545;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .problem-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 5px solid #28a745;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+
+        /* ===== TABLAS ===== */
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            min-width: 500px;
+        }
+        th {
+            background: linear-gradient(135deg, var(--upch-blue), var(--upch-light));
+            color: var(--white);
+            padding: 1rem 1.2rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        td {
+            padding: 0.9rem 1.2rem;
+            border-bottom: 1px solid #eee;
+        }
+        tr:hover td {
+            background: #f8fff0;
+        }
+
+        /* ===== PESTAÑAS INTERNAS ===== */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .tab {
+            background: var(--sand);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            background: var(--upch-gold);
+            color: var(--upch-dark);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* ===== CALCULADORAS ===== */
+        .calculator {
+            background: linear-gradient(135deg, #fff9f5 0%, #fff0e8 100%);
+            border: 3px solid var(--upch-gold);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .calc-title {
+            color: var(--upch-blue);
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .calc-input-group {
+            margin: 1rem 0;
+        }
+        .calc-input-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+        }
+        .calc-input-group input,
+        .calc-input-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--sand);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .calc-input-group input:focus,
+        .calc-input-group select:focus {
+            outline: none;
+            border-color: var(--upch-gold);
+        }
+        .calc-button {
+            background: var(--upch-blue);
+            color: var(--white);
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        .calc-button:hover {
+            background: var(--upch-gold);
+            color: var(--upch-dark);
+            transform: translateY(-2px);
+        }
+        .calc-result {
+            background: var(--white);
+            border-left: 5px solid var(--accent);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            display: none;
+        }
+        .calc-result.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ===== FLASHCARDS ===== */
+        .fc-stats {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .fc-stat {
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 700;
+            color: #fff;
+            font-size: 0.95rem;
+        }
+        .fc-stat.good {
+            background: #28a745;
+        }
+        .fc-stat.bad {
+            background: #dc3545;
+        }
+        .fc-stat.pending {
+            background: #6c757d;
+        }
+        .fc-stat.total {
+            background: var(--upch-light);
+        }
+        .fc-progress {
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            max-width: 720px;
+            margin: 0 auto 1.5rem;
+        }
+        .fc-progress-bar {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--upch-gold), var(--accent));
+            transition: width 0.4s;
+        }
+        .flashcard-scene {
+            perspective: 1400px;
+            max-width: 720px;
+            height: 320px;
+            margin: 0 auto 1.5rem;
+        }
+        .flashcard {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        .fc-face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: auto;
+            box-shadow: 0 8px 24px var(--shadow);
+            font-size: 1.15rem;
+        }
+        .fc-front {
+            background: linear-gradient(135deg, var(--upch-blue), var(--upch-light));
+            color: #fff;
+            border: 3px solid var(--upch-gold);
+        }
+        .fc-back {
+            background: linear-gradient(135deg, #fff9e6, var(--sand));
+            color: var(--text);
+            border: 3px solid var(--upch-gold);
+            transform: rotateY(180deg);
+        }
+        .fc-label {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            font-weight: 800;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+        .fc-hint {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            font-style: italic;
+        }
+        .fc-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .fc-btn {
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 30px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #fff;
+        }
+        .fc-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        .fc-btn.good {
+            background: #28a745;
+        }
+        .fc-btn.bad {
+            background: #dc3545;
+        }
+        .fc-btn:not(:disabled):hover {
+            transform: translateY(-3px);
+        }
+        .fc-link {
+            background: none;
+            border: none;
+            color: #6c757d;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        /* ===== MAPA CONCEPTUAL ===== */
+        .map-container {
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+        .map-tree,
+        .map-tree ul {
+            list-style: none;
+        }
+        .map-tree ul {
+            display: none;
+            padding-left: 1.6rem;
+            margin-top: 0.6rem;
+            border-left: 3px solid var(--upch-gold);
+        }
+        .map-tree li.open>ul {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        .map-tree li {
+            margin: 0.4rem 0;
+        }
+        .map-node {
+            display: inline-block;
+            background: var(--upch-blue);
+            color: #fff;
+            padding: 0.6rem 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .map-node:hover {
+            background: var(--upch-gold);
+            color: var(--upch-dark);
+            transform: translateX(4px);
+        }
+        .map-node.root {
+            background: var(--accent);
+            font-size: 1.15rem;
+        }
+        .map-node.branch {
+            background: var(--upch-light);
+        }
+        .map-leaf {
+            display: inline-block;
+            background: var(--sand);
+            color: var(--text);
+            padding: 0.45rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            border: 2px solid var(--upch-gold);
+        }
+        li.has-children>.map-node::before {
+            content: '▶ ';
+            font-size: 0.8em;
+        }
+        li.has-children.open>.map-node::before {
+            content: '▼ ';
+            font-size: 0.8em;
+        }
+
+        /* ===== GLOSARIO ===== */
+        .glossary-term {
+            background: var(--white);
+            border: 2px solid var(--upch-gold);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.8rem 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .glossary-term:hover {
+            background: #fff9e6;
+            transform: translateX(5px);
+        }
+        .glossary-definition {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--upch-gold);
+        }
+        .glossary-definition.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* ===== ERRORES ===== */
+        .error-card {
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffb3b3 100%);
+            border-left: 5px solid #dc3545;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 12px 12px 0;
+        }
+        .error-title {
+            color: #dc3545;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .correction {
+            background: #d4edda;
+            border-left: 3px solid #28a745;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* ===== QUIZ ===== */
+        .quiz-container {
+            background: linear-gradient(135deg, var(--upch-blue) 0%, var(--upch-light) 100%);
+            color: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .quiz-question {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        .quiz-option {
+            background: var(--white);
+            color: var(--text);
+            border: 3px solid transparent;
+            padding: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .quiz-option:hover {
+            border-color: var(--upch-gold);
+            transform: translateY(-3px);
+        }
+        .quiz-option.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #2e7d32;
+        }
+        .quiz-option.incorrect {
+            background: #f44336;
+            color: white;
+            border-color: #c62828;
+        }
+        .quiz-option:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .quiz-feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+        .quiz-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        .quiz-progress span {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--upch-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            margin-top: 3rem;
+            border-top: 5px solid var(--upch-gold);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            h3 {
+                font-size: 1.2rem;
+            }
+            .logo-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .logo-upch {
+                width: 80px;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            .nav-buttons {
+                gap: 0.4rem;
+            }
+            .nav-btn {
+                padding: 0.5rem 0.9rem;
+                font-size: 0.8rem;
+            }
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+            .tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 0.5rem;
+            }
+            .tab {
+                flex-shrink: 0;
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            .flashcard-scene {
+                height: 360px;
+            }
+            .fc-face {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+            .fc-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            .fc-btn {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4rem;
+            }
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            header {
+                padding: 1rem;
+            }
+            .card {
+                padding: 1rem;
+            }
+            .nav-btn {
+                padding: 0.4rem 0.7rem;
+                font-size: 0.75rem;
+            }
+        }
+        /* ===== IMÁGENES ===== */
+        .img-container {
+            text-align: center;
+            margin: 1.8rem 0;
+        }
+        .img-container img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+        .card ul,
+        .info-box ul,
+        .bio-box ul,
+        .pharma-box ul {
+            padding-left: 1.8rem;
+            margin: 0.6rem 0;
+        }
+        .card ul ul,
+        .info-box ul ul {
+            padding-left: 2.2rem;
+            margin-top: 0.2rem;
+            margin-bottom: 0.4rem;
+            list-style-type: circle;
+        }
+        .card li,
+        .info-box li {
+            margin-bottom: 0.6rem;
+            line-height: 1.6;
+        }
+        .card li strong,
+        .info-box li strong {
+            display: inline-block;
+            margin-right: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="logo-upch.png" alt="Logo UPCH" class="logo-upch" />
+            <div>
+                <h1>Universidad Peruana Cayetano Heredia</h1>
+                <p class="subtitle">Unidad de Formación Básica Integral - UFBI</p>
+                <p class="subtitle">Elementos de Química · Clase 2: Configuración Electrónica y Propiedades Periódicas</p>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-container">
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="showSection('inicio',this)">🏠 Inicio</button>
+            <button class="nav-btn" onclick="showSection('conceptos',this)">📚 Conceptos</button>
+            <button class="nav-btn" onclick="showSection('mapa',this)">🗺️ Mapa</button>
+            <button class="nav-btn" onclick="showSection('flashcards',this)">🃏 Flashcards</button>
+            <button class="nav-btn" onclick="showSection('herramientas',this)">🧮 Herramientas</button>
+            <button class="nav-btn" onclick="showSection('aplicaciones',this)">🏥 Aplicaciones</button>
+            <button class="nav-btn" onclick="showSection('mnemotecnias',this)">🧠 Nemotecnias</button>
+            <button class="nav-btn" onclick="showSection('glosario',this)">📖 Glosario</button>
+            <button class="nav-btn" onclick="showSection('errores',this)">⚠️ Errores</button>
+            <button class="nav-btn" onclick="showSection('bibliografia',this)">📚 Bibliografía</button>
+            <button class="nav-btn" onclick="showSection('quiz',this)">🎯 Quiz</button>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- ==================== INICIO ==================== -->
+        <section id="inicio" class="section active">
+            <div class="card">
+                <h2>🎯 Objetivos de la Clase 2</h2>
+                <div class="info-box">
+                    <ul style="font-size:1.1rem; line-height:2;">
+                        <li>✓ Escribir configuraciones electrónicas (desarrollada y kernel) de átomos e iones.</li>
+                        <li>✓ Ubicar elementos en la tabla periódica según su grupo y periodo.</li>
+                        <li>✓ Explicar la relación entre configuración electrónica y posición en la tabla.</li>
+                        <li>✓ Comprender el concepto de carga nuclear efectiva (Z<sub>ef</sub>) y su impacto en las propiedades periódicas.</li>
+                        <li>✓ Analizar tendencias de radio atómico, radio iónico, energía de ionización, electronegatividad y carácter metálico.</li>
+                        <li>✓ Relacionar las propiedades periódicas con aplicaciones en ciencias de la salud.</li>
+                    </ul>
+                </div>
+                <h3>🩺 Relevancia para las Ciencias de la Salud</h3>
+                <div class="bio-box">
+                    <strong>¿Por qué es fundamental este tema?</strong><br>
+                    La configuración electrónica determina la reactividad de los elementos y su comportamiento biológico. Por ejemplo:
+                    <ul style="margin-top:0.8rem;">
+                        <li>• <strong>Iones esenciales:</strong> Na⁺, K⁺, Ca²⁺, Mg²⁺, Cl⁻, HCO₃⁻ — su tamaño y carga dependen de su estructura electrónica y afectan el equilibrio hidroelectrolítico.</li>
+                        <li>• <strong>Elementos traza:</strong> Fe, Zn, Cu, Mn, I — actúan como cofactores enzimáticos y su función está ligada a su capacidad de formar iones con configuraciones específicas.</li>
+                        <li>• <strong>Isótopos médicos:</strong> ¹³¹I, ⁹⁹ᵐTc, ²⁰¹Tl — su uso en diagnóstico y terapia se basa en propiedades nucleares que dependen de la estructura atómica.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CONCEPTOS ==================== -->
+        <section id="conceptos" class="section">
+            <div class="card">
+                <h2>📚 Conceptos Fundamentales</h2>
+                <div id="conceptos-tabs" class="tab-group">
+                    <div class="tabs">
+                        <button class="tab active" onclick="showTab('conceptos-tabs','sub-config',this)">⚛️ Config. Electrónica</button>
+                        <button class="tab" onclick="showTab('conceptos-tabs','sub-tabla',this)">📋 Tabla Periódica</button>
+                        <button class="tab" onclick="showTab('conceptos-tabs','sub-propiedades',this)">📊 Propiedades Periódicas</button>
+                    </div>
+
+                    <!-- Configuración Electrónica -->
+                    <div id="sub-config" class="tab-content active">
+                        <h3>Configuración Electrónica</h3>
+                        <p>Distribución de los electrones en los orbitales de un átomo, siguiendo tres principios fundamentales:</p>
+                        <ul>
+                            <li><strong>Principio de Aufbau (construcción progresiva):</strong> los electrones ocupan primero los orbitales de menor energía.</li>
+                            <li><strong>Principio de máxima multiplicidad de Hund:</strong> en orbitales de igual energía, los electrones se distribuyen desapareados antes de aparearse.</li>
+                            <li><strong>Principio de exclusión de Pauli:</strong> en un orbital caben máximo 2 electrones con spines opuestos.</li>
+                        </ul>
+                        <div class="img-container">
+                            <img src="config-electronica.png" alt="Diagrama de configuración electrónica" class="molecule-img">
+                        </div>
+                        <div class="tip-box">
+                            <strong>Representaciones:</strong>
+                            <ul>
+                                <li><strong>Desarrollada:</strong> 1s² 2s² 2p⁶ 3s² 3p⁶ 4s¹ (ej. K, Z=19)</li>
+                                <li><strong>Kernel (abreviada):</strong> [Ar] 4s¹  (usando el gas noble anterior).</li>
+                            </ul>
+                        </div>
+                        <h4>Ejemplos de interés en salud</h4>
+                        <div class="table-responsive">
+                            <table>
+                                <tr><th>Elemento/Ion</th><th>Z</th><th>Configuración kernel</th><th>Importancia biológica</th></tr>
+                                <tr><td>Na⁺</td><td>11</td><td>[Ne] 3s⁰</td><td>Principal catión extracelular</td></tr>
+                                <tr><td>K⁺</td><td>19</td><td>[Ar] 4s⁰</td><td>Principal catión intracelular</td></tr>
+                                <tr><td>Ca²⁺</td><td>20</td><td>[Ar] 4s⁰</td><td>Señalización, huesos, contracción</td></tr>
+                                <tr><td>Fe²⁺ (ferroso)</td><td>26</td><td>[Ar] 3d⁶</td><td>Hemoglobina, transporte de O₂</td></tr>
+                                <tr><td>I⁻ (yoduro)</td><td>53</td><td>[Kr] 5s² 4d¹⁰ 5p⁶</td><td>Hormonas tiroideas</td></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tabla Periódica -->
+                    <div id="sub-tabla" class="tab-content">
+                        <h3>Tabla Periódica y Configuración Electrónica</h3>
+                        <p>La tabla periódica moderna ordena los elementos por número atómico (Z) creciente. Las propiedades químicas se repiten periódicamente debido a la configuración electrónica de la capa de valencia.</p>
+                        <div class="img-container">
+                            <img src="tabla-periodica.png" alt="Tabla periódica actualizada" class="molecule-img">
+                        </div>
+                        <ul>
+                            <li><strong>Periodo</strong> = número cuántico principal (n) del último electrón.</li>
+                            <li><strong>Grupo</strong> = número de electrones en la capa de valencia (para grupos A) o (n-1)d + ns para metales de transición.</li>
+                            <li><strong>Bloques:</strong> s, p, d, f según el orbital del último electrón.</li>
+                        </ul>
+                        <div class="info-box">
+                            <strong>Ejemplo:</strong> El potasio (Z=19) tiene configuración [Ar] 4s¹. Último nivel n=4 → Periodo 4; 1 electrón de valencia → Grupo 1 (IA). Es un metal alcalino.
+                        </div>
+                        <h4>Clasificación de los elementos</h4>
+                        <ul>
+                            <li><strong>Metales:</strong> tienden a perder electrones (cationes). Ej: Na, K, Ca, Fe.</li>
+                            <li><strong>No metales:</strong> tienden a ganar electrones (aniones). Ej: O, Cl, I.</li>
+                            <li><strong>Metaloides:</strong> propiedades intermedias. Ej: Si, Ge.</li>
+                            <li><strong>Gases nobles:</strong> capa de valencia completa, muy estables. Ej: He, Ne, Ar.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Propiedades Periódicas -->
+                    <div id="sub-propiedades" class="tab-content">
+                        <h3>Propiedades Periódicas</h3>
+                        <p>Estas propiedades varían de manera sistemática en la tabla periódica debido a la <strong>carga nuclear efectiva (Z<sub>ef</sub>)</strong> y el apantallamiento.</p>
+                        <div class="bio-box">
+                            <strong>Z<sub>ef</sub> = Z - σ</strong> (σ = constante de apantallamiento de los electrones internos).<br>
+                            Z<sub>ef</sub> aumenta de izquierda a derecha en un periodo y disminuye al bajar en un grupo.
+                        </div>
+                        <ul>
+                            <li><strong>Radio atómico:</strong> aumenta hacia abajo en un grupo (nuevo nivel) y disminuye hacia la derecha en un periodo (mayor Z<sub>ef</sub>).</li>
+                            <li><strong>Radio iónico:</strong> los cationes son más pequeños que el átomo neutro; los aniones son más grandes.</li>
+                            <li><strong>Energía de ionización (EI):</strong> energía necesaria para arrancar un electrón. Aumenta hacia la derecha y hacia arriba.</li>
+                            <li><strong>Electronegatividad (EN):</strong> capacidad de atraer electrones en un enlace. Aumenta hacia la derecha y hacia arriba (el F es el más electronegativo).</li>
+                            <li><strong>Carácter metálico:</strong> disminuye de izquierda a derecha y aumenta hacia abajo.</li>
+                        </ul>
+                        <div class="img-container">
+                            <img src="propiedades-tendencias.png" alt="Tendencias de propiedades periódicas" class="molecule-img">
+                        </div>
+                        <div class="tip-box">
+                            <strong>Ejemplo clínico:</strong> El ion K⁺ es más grande que Na⁺, lo que afecta la permeabilidad de los canales iónicos en las membranas celulares.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== MAPA CONCEPTUAL ==================== -->
+        <section id="mapa" class="section">
+            <div class="card">
+                <h2>🗺️ Mapa Conceptual Interactivo</h2>
+                <p style="margin-bottom:1rem;">Haz <strong>clic</strong> en cada nodo para desplegar u ocultar sus ramas.</p>
+                <div class="map-container">
+                    <ul class="map-tree">
+                        <li class="has-children">
+                            <div class="map-node root" onclick="toggleMap(this)">⚛️ Configuración Electrónica y Propiedades</div>
+                            <ul>
+                                <li class="has-children">
+                                    <div class="map-node branch" onclick="toggleMap(this)">📐 Configuración Electrónica</div>
+                                    <ul>
+                                        <li><span class="map-leaf">Principios: Aufbau, Hund, Pauli</span></li>
+                                        <li><span class="map-leaf">Orbitales (s, p, d, f)</span></li>
+                                        <li><span class="map-leaf">Representación desarrollada y kernel</span></li>
+                                        <li><span class="map-leaf">Configuración de iones (cationes, aniones)</span></li>
+                                    </ul>
+                                </li>
+                                <li class="has-children">
+                                    <div class="map-node branch" onclick="toggleMap(this)">📋 Tabla Periódica</div>
+                                    <ul>
+                                        <li><span class="map-leaf">Periodos y grupos</span></li>
+                                        <li><span class="map-leaf">Bloques (s, p, d, f)</span></li>
+                                        <li><span class="map-leaf">Relación con la configuración electrónica</span></li>
+                                        <li><span class="map-leaf">Clasificación: metales, no metales, metaloides, gases nobles</span></li>
+                                    </ul>
+                                </li>
+                                <li class="has-children">
+                                    <div class="map-node branch" onclick="toggleMap(this)">📊 Propiedades Periódicas</div>
+                                    <ul>
+                                        <li><span class="map-leaf">Carga nuclear efectiva (Z<sub>ef</sub>)</span></li>
+                                        <li><span class="map-leaf">Radio atómico e iónico</span></li>
+                                        <li><span class="map-leaf">Energía de ionización</span></li>
+                                        <li><span class="map-leaf">Electronegatividad</span></li>
+                                        <li><span class="map-leaf">Carácter metálico / no metálico</span></li>
+                                    </ul>
+                                </li>
+                                <li class="has-children">
+                                    <div class="map-node branch" onclick="toggleMap(this)">🏥 Aplicaciones en Salud</div>
+                                    <ul>
+                                        <li><span class="map-leaf">Iones esenciales: Na⁺, K⁺, Ca²⁺, Mg²⁺, Cl⁻</span></li>
+                                        <li><span class="map-leaf">Elementos traza: Fe, Zn, Cu, Mn, I</span></li>
+                                        <li><span class="map-leaf">Isótopos médicos: ¹³¹I, ⁹⁹ᵐTc</span></li>
+                                        <li><span class="map-leaf">Fármacos y biocompatibilidad</span></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== FLASHCARDS ==================== -->
+        <section id="flashcards" class="section">
+            <div class="card">
+                <h2>🃏 Flashcards de Estudio</h2>
+                <p>Haz <strong>clic</strong> en la tarjeta para voltearla y ver la respuesta. Luego califícate con honestidad.</p>
+
+                <div class="fc-stats">
+                    <span class="fc-stat good">✅ Buenas: <span id="fc-good">0</span></span>
+                    <span class="fc-stat bad">❌ Malas: <span id="fc-bad">0</span></span>
+                    <span class="fc-stat pending">⏳ Pendientes: <span id="fc-left">0</span></span>
+                    <span class="fc-stat total">📈 Historial: <span id="fc-hist">0 ✓ / 0 ✗</span></span>
+                </div>
+                <div class="fc-progress"><div class="fc-progress-bar" id="fc-bar"></div></div>
+
+                <div class="flashcard-scene" id="fc-scene">
+                    <div class="flashcard" id="fc-card" onclick="flipCard()">
+                        <div class="fc-face fc-front">
+                            <div class="fc-label">PREGUNTA</div>
+                            <div id="fc-question"></div>
+                            <span class="fc-hint">Clic para voltear ✨</span>
+                        </div>
+                        <div class="fc-face fc-back">
+                            <div class="fc-label">RESPUESTA</div>
+                            <div id="fc-answer"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fc-controls" id="fc-controls">
+                    <button class="fc-btn good" id="btn-fc-good" onclick="gradeCard(true)" disabled>✅ La sabía</button>
+                    <button class="fc-btn bad" id="btn-fc-bad" onclick="gradeCard(false)" disabled>❌ No la sabía</button>
+                </div>
+
+                <div id="fc-summary" class="calc-result" style="max-width:720px;margin:1rem auto;"></div>
+                <div style="text-align:center;">
+                    <button class="calc-button" onclick="resetFlashcards()">🔄 Reiniciar Flashcards</button><br>
+                    <button class="fc-link" onclick="borrarHistorial()">Borrar historial acumulado</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== HERRAMIENTAS ==================== -->
+        <section id="herramientas" class="section">
+            <div class="card">
+                <h2>🧮 Herramientas Interactivas</h2>
+                <div id="herramientas-tabs" class="tab-group">
+                    <div class="tabs">
+                        <button class="tab active" onclick="showTab('herramientas-tabs','calc-zef',this)">⚡ Carga nuclear efectiva</button>
+                        <button class="tab" onclick="showTab('herramientas-tabs','calc-config',this)">🔍 Configuración electrónica</button>
+                        <button class="tab" onclick="showTab('herramientas-tabs','buscador-elemento',this)">🔎 Buscador de elementos</button>
+                    </div>
+
+                    <!-- Zef -->
+                    <div id="calc-zef" class="tab-content active">
+                        <div class="calculator">
+                            <div class="calc-title">⚡ Carga Nuclear Efectiva (Z<sub>ef</sub>)</div>
+                            <p>Z<sub>ef</sub> = Z - σ, donde σ es la constante de apantallamiento (aproximadamente igual al número de electrones internos).</p>
+                            <div class="calc-input-group">
+                                <label>Número atómico (Z):</label>
+                                <input type="number" id="z-zef" min="1" max="118" placeholder="ej. 19 (K)" />
+                            </div>
+                            <div class="calc-input-group">
+                                <label>Electrones internos (σ):</label>
+                                <input type="number" id="sigma-zef" min="0" placeholder="ej. 18 para K" />
+                            </div>
+                            <button class="calc-button" onclick="calcularZef()">Calcular Z<sub>ef</sub></button>
+                            <div id="resultado-zef" class="calc-result"></div>
+                            <div class="tip-box" style="margin-top:1.5rem;">
+                                <strong>Ejemplo:</strong> Potasio (Z=19) → σ ≈ 18 (electrones internos) → Z<sub>ef</sub> ≈ +1.<br>
+                                Para el Cloro (Z=17) → σ ≈ 10 (1s²2s²2p⁶) → Z<sub>ef</sub> ≈ +7, por eso el Cl atrae fuertemente electrones.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Configuración electrónica -->
+                    <div id="calc-config" class="tab-content">
+                        <div class="calculator">
+                            <div class="calc-title">🔍 Configuración Electrónica de un Elemento</div>
+                            <div class="calc-input-group">
+                                <label>Número atómico (Z):</label>
+                                <input type="number" id="z-config" min="1" max="118" placeholder="ej. 26 (Fe)" />
+                            </div>
+                            <button class="calc-button" onclick="mostrarConfig()">Mostrar configuración</button>
+                            <div id="resultado-config" class="calc-result"></div>
+                            <div class="info-box" style="margin-top:1.5rem;">
+                                <strong>Nota:</strong> Esta herramienta utiliza reglas empíricas de llenado (Aufbau). Para iones, ajusta manualmente.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Buscador de elementos -->
+                    <div id="buscador-elemento" class="tab-content">
+                        <div class="calculator">
+                            <div class="calc-title">🔎 Buscador de Elementos por Z</div>
+                            <div class="calc-input-group">
+                                <label>Ingresa Z (1-118):</label>
+                                <input type="number" id="z-buscar" min="1" max="118" placeholder="ej. 53 (I)" />
+                            </div>
+                            <button class="calc-button" onclick="buscarElemento()">Buscar</button>
+                            <div id="resultado-elemento" class="calc-result"></div>
+                            <div class="info-box" style="margin-top:1.5rem;">
+                                <strong>Datos de tabla periódica:</strong> se mostrará símbolo, nombre, grupo, periodo y clasificación.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== APLICACIONES ==================== -->
+        <section id="aplicaciones" class="section">
+            <div class="card">
+                <h2>🏥 Aplicaciones en Ciencias de la Salud</h2>
+                <p>La configuración electrónica y las propiedades periódicas tienen aplicaciones directas en el diagnóstico, tratamiento y comprensión de procesos biológicos.</p>
+                <div class="img-container">
+                    <img src="aplicaciones-salud.png" alt="Aplicaciones en salud" class="molecule-img">
+                </div>
+
+                <h3>🧬 Iones y equilibrio electrolítico</h3>
+                <div class="bio-box">
+                    <ul>
+                        <li><strong>Na⁺ (Z=11, [Ne]3s⁰):</strong> principal catión extracelular, regula la presión osmótica y el volumen sanguíneo.</li>
+                        <li><strong>K⁺ (Z=19, [Ar]4s⁰):</strong> principal catión intracelular, crucial para el potencial de membrana y la contracción cardíaca.</li>
+                        <li><strong>Ca²⁺ (Z=20, [Ar]4s⁰):</strong> implicado en la señalización celular, contracción muscular y coagulación sanguínea.</li>
+                        <li><strong>Mg²⁺ (Z=12, [Ne]3s⁰):</strong> cofactor enzimático, estabiliza membranas y participa en la síntesis de ATP.</li>
+                        <li><strong>Cl⁻ (Z=17, [Ne]3s²3p⁶):</strong> principal anión extracelular, contribuye al equilibrio ácido-base.</li>
+                    </ul>
+                </div>
+
+                <h3>🧪 Elementos traza esenciales</h3>
+                <div class="table-responsive">
+                    <table>
+                        <tr><th>Elemento</th><th>Símbolo</th><th>Configuración (neutro)</th><th>Función biológica</th><th>Deficiencia</th></tr>
+                        <tr><td>Hierro</td><td>Fe</td><td>[Ar] 4s² 3d⁶</td><td>Hemoglobina, mioglobina, citocromos</td><td>Anemia ferropénica</td></tr>
+                        <tr><td>Zinc</td><td>Zn</td><td>[Ar] 4s² 3d¹⁰</td><td>Cofactor de más de 300 enzimas</td><td>Retraso del crecimiento, inmunodeficiencia</td></tr>
+                        <tr><td>Cobre</td><td>Cu</td><td>[Ar] 4s¹ 3d¹⁰</td><td>Ceruloplasmina, citocromo oxidasa</td><td>Anemia, anomalías óseas</td></tr>
+                        <tr><td>Manganeso</td><td>Mn</td><td>[Ar] 4s² 3d⁵</td><td>Superóxido dismutasa, metabolismo óseo</td><td>Alteraciones del metabolismo</td></tr>
+                        <tr><td>Yodo</td><td>I</td><td>[Kr] 5s² 4d¹⁰ 5p⁵</td><td>Hormonas tiroideas (T3, T4)</td><td>Bocio, hipotiroidismo</td></tr>
+                    </table>
+                </div>
+
+                <h3>☢️ Isótopos en diagnóstico y terapia</h3>
+                <div class="pharma-box">
+                    <ul>
+                        <li><strong>Yodo-131 (¹³¹I):</strong> emite radiación beta, se usa para tratar hipertiroidismo y cáncer de tiroides.</li>
+                        <li><strong>Tecnecio-99m (⁹⁹ᵐTc):</strong> emisor de rayos gamma, el isótopo más usado en medicina nuclear para imágenes de órganos (corazón, cerebro, huesos).</li>
+                        <li><strong>Talio-201 (²⁰¹Tl):</strong> usado en estudios de perfusión miocárdica.</li>
+                        <li><strong>Carbono-14 (¹⁴C):</strong> empleado en pruebas de aliento para detectar Helicobacter pylori.</li>
+                    </ul>
+                </div>
+
+                <h3>💊 Fármacos y materiales biocompatibles</h3>
+                <div class="tip-box">
+                    <ul>
+                        <li><strong>Litio (Li, Z=3, [He]2s¹):</strong> estabilizador del estado de ánimo en trastorno bipolar.</li>
+                        <li><strong>Platino (Pt, Z=78, [Xe]6s¹ 4f¹⁴ 5d⁹):</strong> cisplatino, agente antineoplásico.</li>
+                        <li><strong>Bismuto (Bi, Z=83, [Xe]6s² 4f¹⁴ 5d¹⁰ 6p³):</strong> subsalicilato de bismuto (antiácido y antidiarreico).</li>
+                        <li><strong>Titanio (Ti, Z=22, [Ar]4s² 3d²):</strong> biocompatible, usado en implantes dentales y prótesis articulares (osteointegración).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== MNEMOTECNIAS ==================== -->
+        <section id="mnemotecnias" class="section">
+            <div class="card">
+                <h2>🧠 Nemotecnias y Reglas Mnemotécnicas</h2>
+
+                <div class="mnemonic-card" style="background:linear-gradient(135deg,#fff5f5 0%,#ffe0e0 100%);border:3px solid var(--accent);border-radius:12px;padding:1.5rem;margin:1rem 0;">
+                    <div style="color:var(--accent);font-weight:700;font-size:1.2rem;">🎵 "Orden de llenado de orbitales"</div>
+                    <p style="font-style:italic;line-height:2;">
+                        <strong>"1s, 2s, 2p, 3s, 3p, 4s, 3d, 4p, 5s, 4d, 5p, 6s, 4f, 5d, 6p, 7s, 5f, 6d, 7p"</strong><br>
+                        (Se recuerda con la regla del serrucho o de las diagonales).
+                    </p>
+                </div>
+
+                <div class="mnemonic-card" style="background:linear-gradient(135deg,#fff5f5 0%,#ffe0e0 100%);border:3px solid var(--accent);border-radius:12px;padding:1.5rem;margin:1rem 0;">
+                    <div style="color:var(--accent);font-weight:700;font-size:1.2rem;">🔋 "Carga nuclear efectiva"</div>
+                    <div class="tip-box">
+                        <strong>Z<sub>ef</sub> = Z - σ</strong><br>
+                        "Z es el total, σ son los que apantallan, la diferencia es lo que siente el electrón de valencia."
+                    </div>
+                </div>
+
+                <div class="mnemonic-card" style="background:linear-gradient(135deg,#fff5f5 0%,#ffe0e0 100%);border:3px solid var(--accent);border-radius:12px;padding:1.5rem;margin:1rem 0;">
+                    <div style="color:var(--accent);font-weight:700;font-size:1.2rem;">📏 "Tendencias periódicas"</div>
+                    <div class="info-box">
+                        <strong>Radio atómico:</strong> "Crece hacia abajo, decrece hacia la derecha."<br>
+                        <strong>Energía de ionización:</strong> "Crece hacia arriba y hacia la derecha."<br>
+                        <strong>Electronegatividad:</strong> "Crece hacia arriba y hacia la derecha (F es el rey)."<br>
+                        <strong>Carácter metálico:</strong> "Crece hacia abajo y hacia la izquierda."
+                    </div>
+                </div>
+
+                <div class="mnemonic-card" style="background:linear-gradient(135deg,#fff5f5 0%,#ffe0e0 100%);border:3px solid var(--accent);border-radius:12px;padding:1.5rem;margin:1rem 0;">
+                    <div style="color:var(--accent);font-weight:700;font-size:1.2rem;">🧩 "Iones en el cuerpo"</div>
+                    <p><strong>Na⁺, K⁺, Ca²⁺, Mg²⁺, Cl⁻, HCO₃⁻, PO₄³⁻</strong> — "NKCMP" (recordar como los principales electrolitos).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== GLOSARIO ==================== -->
+        <section id="glosario" class="section">
+            <div class="card">
+                <h2>📖 Glosario Interactivo</h2>
+                <p style="margin-bottom:1.5rem;">Haz clic en cada término para ver su definición:</p>
+
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Configuración electrónica</strong><div class="glossary-definition">Distribución de los electrones en los orbitales de un átomo, siguiendo los principios de Aufbau, Hund y Pauli.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Principio de Aufbau</strong><div class="glossary-definition">Los electrones ocupan primero los orbitales de menor energía (construcción progresiva).</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Principio de Hund</strong><div class="glossary-definition">En orbitales de igual energía, los electrones se distribuyen desapareados antes de aparearse.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Principio de exclusión de Pauli</strong><div class="glossary-definition">Un orbital puede albergar como máximo dos electrones con spines opuestos.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Carga nuclear efectiva (Z<sub>ef</sub>)</strong><div class="glossary-definition">Carga neta que siente un electrón de valencia, considerando el apantallamiento de los electrones internos. Z<sub>ef</sub> = Z - σ.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Radio atómico</strong><div class="glossary-definition">Mitad de la distancia entre los núcleos de dos átomos idénticos enlazados. Aumenta hacia abajo en un grupo y disminuye hacia la derecha en un periodo.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Energía de ionización (EI)</strong><div class="glossary-definition">Energía mínima necesaria para arrancar un electrón de un átomo en estado gaseoso. Aumenta hacia la derecha y hacia arriba.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Electronegatividad (EN)</strong><div class="glossary-definition">Capacidad de un átomo para atraer hacia sí el par de electrones compartido en un enlace químico. El flúor es el más electronegativo.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Metal</strong><div class="glossary-definition">Elemento con alta conductividad térmica y eléctrica, maleable, dúctil, generalmente sólido y con óxidos básicos.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>No metal</strong><div class="glossary-definition">Elemento con baja conductividad, quebradizo en estado sólido, puede ser gas o líquido, y sus óxidos son ácidos.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Gas noble</strong><div class="glossary-definition">Elemento del grupo 18, con capa de valencia completa (octeto), muy estable y poco reactivo.</div></div>
+                <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Ion</strong><div class="glossary-definition">Átomo o grupo de átomos con carga eléctrica neta, formado al ganar o perder electrones. Los cationes son positivos, los aniones negativos.</div></div>
+            </div>
+        </section>
+
+        <!-- ==================== ERRORES COMUNES ==================== -->
+        <section id="errores" class="section">
+            <div class="card">
+                <h2>⚠️ Errores Comunes de Estudiantes</h2>
+
+                <div class="error-card">
+                    <div class="error-title">❌ Error 1: No respetar el orden de llenado de orbitales</div>
+                    <p><strong>Error:</strong> Escribir 3d⁴ antes de 4s² (ej. para el hierro).</p>
+                    <div class="correction"><strong>✓ Corrección:</strong> El orden de energía es 4s (menor energía) antes que 3d. Para el hierro (Z=26): [Ar] 4s² 3d⁶.</div>
+                </div>
+
+                <div class="error-card">
+                    <div class="error-title">❌ Error 2: Confundir radio atómico con radio iónico</div>
+                    <p><strong>Error:</strong> "El ion Na⁺ es más grande que el átomo de Na."</p>
+                    <div class="correction"><strong>✓ Corrección:</strong> Los cationes son más pequeños que el átomo neutro (pierden electrones y Z<sub>ef</sub> aumenta). Na⁺ es menor que Na.</div>
+                </div>
+
+                <div class="error-card">
+                    <div class="error-title">❌ Error 3: Pensar que la electronegatividad es igual en todos los periodos</div>
+                    <p><strong>Error:</strong> "El Cs es más electronegativo que el F."</p>
+                    <div class="correction"><strong>✓ Corrección:</strong> La electronegatividad aumenta hacia la derecha y hacia arriba. El F es el más electronegativo; el Cs (abajo a la izquierda) es muy electropositivo.</div>
+                </div>
+
+                <div class="error-card">
+                    <div class="error-title">❌ Error 4: No considerar el apantallamiento para Z<sub>ef</sub></div>
+                    <p><strong>Error:</strong> "Z<sub>ef</sub> es igual a Z para todos los electrones."</p>
+                    <div class="correction"><strong>✓ Corrección:</strong> Los electrones internos apantallan la carga nuclear. Z<sub>ef</sub> para un electrón de valencia es menor que Z.</div>
+                </div>
+
+                <div class="error-card">
+                    <div class="error-title">❌ Error 5: No relacionar la configuración con la posición en la tabla</div>
+                    <p><strong>Error:</strong> "El elemento con configuración [Ne]3s²3p⁵ está en el grupo 2."</p>
+                    <div class="correction"><strong>✓ Corrección:</strong> [Ne]3s²3p⁵ tiene 7 electrones de valencia (2+5) → grupo 17 (halógenos).</div>
+                </div>
+
+                <div class="tip-box" style="margin-top:2rem;">
+                    <strong>💡 Consejo:</strong> Repasa los conceptos usando las flashcards y el mapa conceptual. Practica con las herramientas interactivas.
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== BIBLIOGRAFÍA ==================== -->
+        <section id="bibliografia" class="section">
+            <div class="card">
+                <h2>📚 Bibliografía Universitaria</h2>
+
+                <h3>Libros de Química General</h3>
+                <div class="info-box">
+                    <strong>1. Chang, R., & Goldsby, K. A. (2017).</strong> <em>Química</em> (12ª ed.). McGraw-Hill.<br>
+                    • <strong>Capítulo 7:</strong> Configuración electrónica y tabla periódica (páginas 220-265).<br>
+                    • <strong>Capítulo 8:</strong> Propiedades periódicas de los elementos (páginas 266-295).<br>
+                    • Incluye tendencias de radio, energía de ionización y electronegatividad.
+                </div>
+                <div class="info-box">
+                    <strong>2. Brown, T. L., LeMay, H. E., Bursten, B. E., & Murphy, C. J. (2018).</strong> <em>Química: La Ciencia Central</em> (13ª ed.). Pearson.<br>
+                    • <strong>Capítulo 6:</strong> Estructura electrónica de los átomos (páginas 220-265).<br>
+                    • <strong>Capítulo 7:</strong> Propiedades periódicas (páginas 266-295).
+                </div>
+                <div class="info-box">
+                    <strong>3. Petrucci, R. H., Herring, F. G., Madura, J. D., & Bissonnette, C. (2017).</strong> <em>Química General: Principios y Aplicaciones Modernas</em> (11ª ed.). Pearson.<br>
+                    • <strong>Capítulo 8:</strong> Electrones en átomos (páginas 280-315).<br>
+                    • <strong>Capítulo 9:</strong> La tabla periódica y algunas propiedades atómicas (páginas 316-345).
+                </div>
+
+                <h3>Recursos en Línea</h3>
+                <div class="bio-box">
+                    <strong>Tabla Periódica Interactiva:</strong> <a href="https://ptable.com" target="_blank" style="color:var(--upch-blue);">https://ptable.com</a> (idioma español)<br>
+                    <strong>PubChem:</strong> <a href="https://pubchem.ncbi.nlm.nih.gov" target="_blank" style="color:var(--upch-blue);">https://pubchem.ncbi.nlm.nih.gov</a><br>
+                    <strong>Khan Academy - Química:</strong> <a href="https://es.khanacademy.org/science/chemistry" target="_blank" style="color:var(--upch-blue);">https://es.khanacademy.org</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== QUIZ ==================== -->
+        <section id="quiz" class="section">
+            <div class="card">
+                <h2>🎯 Quiz de Autoevaluación</h2>
+                <p>Se mostrarán <strong>5 preguntas al azar</strong> de un total de 15. Al finalizar, podrás cargar una nueva ronda.</p>
+                <div id="quiz-container"></div>
+                <div style="text-align:center;margin-top:2rem;">
+                    <button class="calc-button" onclick="cargarQuiz()">🔄 Nueva ronda</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p style="font-size:1.2rem;margin-bottom:0.5rem;">🎓 Universidad Peruana Cayetano Heredia</p>
+        <p>Unidad de Formación Básica Integral · Curso: Elementos de Química</p>
+        <p style="margin-top:0.5rem;font-style:italic;">"La química es el puente entre la materia y la vida"</p>
+        <p style="margin-top:2rem;font-size:0.9rem;">© 2026 · Material educativo para estudiantes de ciencias de la salud</p>
+    </footer>
+
+    <script>
+        // ============================================================
+        //  NAVEGACIÓN
+        // ============================================================
+        function showSection(sectionId, btn) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showTab(groupId, tabId, btn) {
+            const group = document.getElementById(groupId);
+            group.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            group.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if (btn) btn.classList.add('active');
+        }
+
+        // ============================================================
+        //  MAPA CONCEPTUAL
+        // ============================================================
+        function toggleMap(node) {
+            node.parentElement.classList.toggle('open');
+        }
+
+        // ============================================================
+        //  GLOSARIO
+        // ============================================================
+        function toggleDefinition(el) {
+            const def = el.querySelector('.glossary-definition');
+            def.classList.toggle('show');
+            el.style.background = def.classList.contains('show') ? '#fff9e6' : 'var(--white)';
+        }
+
+        // ============================================================
+        //  FLASHCARDS (20 tarjetas sobre clase 2)
+        // ============================================================
+        const flashcards = [
+            { q: '¿Qué es la configuración electrónica?', a: 'Distribución de los electrones en los orbitales de un átomo, siguiendo Aufbau, Hund y Pauli.' },
+            { q: '¿Cuál es el principio de Aufbau?', a: 'Los electrones ocupan primero los orbitales de menor energía.' },
+            { q: '¿Qué dice el principio de Hund?', a: 'En orbitales de igual energía, los electrones se distribuyen desapareados antes de aparearse.' },
+            { q: '¿Qué establece el principio de exclusión de Pauli?', a: 'Un orbital puede tener como máximo 2 electrones con spines opuestos.' },
+            { q: '¿Cómo se representa la configuración kernel del potasio (Z=19)?', a: '[Ar] 4s¹' },
+            { q: '¿Qué indica el periodo de un elemento?', a: 'El número cuántico principal (n) del último nivel ocupado.' },
+            { q: '¿Cómo se determina el grupo de un elemento?', a: 'Por el número de electrones en la capa de valencia.' },
+            { q: '¿Qué es la carga nuclear efectiva (Z<sub>ef</sub>)?', a: 'La carga neta que siente un electrón de valencia, Z<sub>ef</sub> = Z - σ.' },
+            { q: '¿Cómo varía el radio atómico en un periodo?', a: 'Disminuye de izquierda a derecha debido al aumento de Z<sub>ef</sub>.' },
+            { q: '¿Cómo varía el radio atómico en un grupo?', a: 'Aumenta hacia abajo porque se añaden niveles de energía.' },
+            { q: '¿Qué es la energía de ionización?', a: 'Energía mínima para arrancar un electrón de un átomo en estado gaseoso.' },
+            { q: '¿Qué es la electronegatividad?', a: 'Capacidad de un átomo para atraer electrones en un enlace químico.' },
+            { q: '¿Cuál es el elemento más electronegativo?', a: 'El flúor (F).' },
+            { q: '¿Qué son los cationes y aniones?', a: 'Cationes: iones positivos (pierden electrones); aniones: iones negativos (ganan electrones).' },
+            { q: '¿Por qué los cationes son más pequeños que el átomo neutro?', a: 'Porque pierden electrones y aumenta Z<sub>ef</sub> sobre los restantes.' },
+            { q: '¿Por qué los aniones son más grandes que el átomo neutro?', a: 'Porque ganan electrones y disminuye Z<sub>ef</sub> por mayor repulsión.' },
+            { q: '¿Qué elemento del grupo 1 es esencial para el equilibrio osmótico?', a: 'El sodio (Na).' },
+            { q: '¿Qué ion es fundamental para la contracción muscular?', a: 'El calcio (Ca²⁺).' },
+            { q: '¿Qué elemento se usa en medicina nuclear para imágenes de tiroides?', a: 'El yodo-131 (¹³¹I).' },
+            { q: '¿Qué metal se utiliza en implantes dentales por su biocompatibilidad?', a: 'El titanio (Ti).' }
+        ];
+
+        let fcIndex = 0,
+            fcFlipped = false,
+            fcGood = 0,
+            fcBad = 0,
+            fcDone = false;
+
+        function fcUpdateStats() {
+            document.getElementById('fc-good').textContent = fcGood;
+            document.getElementById('fc-bad').textContent = fcBad;
+            document.getElementById('fc-left').textContent = Math.max(0, flashcards.length - fcIndex);
+            const tg = parseInt(localStorage.getItem('fcTotalGood') || '0', 10);
+            const tb = parseInt(localStorage.getItem('fcTotalBad') || '0', 10);
+            document.getElementById('fc-hist').textContent = tg + ' ✓ / ' + tb + ' ✗';
+            document.getElementById('fc-bar').style.width = (fcIndex / flashcards.length * 100) + '%';
+        }
+
+        function fcRenderCard() {
+            const card = document.getElementById('fc-card');
+            card.classList.remove('flipped');
+            fcFlipped = false;
+            document.getElementById('fc-question').textContent = flashcards[fcIndex].q;
+            document.getElementById('fc-answer').textContent = flashcards[fcIndex].a;
+            document.getElementById('btn-fc-good').disabled = true;
+            document.getElementById('btn-fc-bad').disabled = true;
+            fcUpdateStats();
+        }
+
+        function flipCard() {
+            if (fcDone) return;
+            const card = document.getElementById('fc-card');
+            card.classList.toggle('flipped');
+            fcFlipped = card.classList.contains('flipped');
+            document.getElementById('btn-fc-good').disabled = !fcFlipped;
+            document.getElementById('btn-fc-bad').disabled = !fcFlipped;
+        }
+
+        function gradeCard(wasGood) {
+            if (!fcFlipped || fcDone) return;
+            if (wasGood) {
+                fcGood++;
+                localStorage.setItem('fcTotalGood', String(parseInt(localStorage.getItem('fcTotalGood') || '0', 10) + 1));
+            } else {
+                fcBad++;
+                localStorage.setItem('fcTotalBad', String(parseInt(localStorage.getItem('fcTotalBad') || '0', 10) + 1));
+            }
+            fcIndex++;
+            if (fcIndex < flashcards.length) {
+                fcRenderCard();
+            } else {
+                fcFinish();
+            }
+        }
+
+        function fcFinish() {
+            fcDone = true;
+            document.getElementById('fc-scene').style.display = 'none';
+            document.getElementById('fc-controls').style.display = 'none';
+            const total = fcGood + fcBad;
+            const pct = Math.round(fcGood / total * 100);
+            let msg = pct >= 80 ? ' ¡Excelente! Dominas el tema.' : (pct >= 60 ? '💪 ¡Bien! Repasa las que fallaste.' :
+                '📚 Necesitas repasar: vuelve a la pestaña Conceptos.');
+            const sum = document.getElementById('fc-summary');
+            sum.innerHTML = '<strong>📊 Resumen de la sesión:</strong><br>✅ Buenas: ' + fcGood + ' &nbsp; ❌ Malas: ' + fcBad +
+                '<br>Precisión: <strong>' + pct + '%</strong><br>' + msg;
+            sum.classList.add('show');
+            fcUpdateStats();
+        }
+
+        function resetFlashcards() {
+            fcIndex = 0;
+            fcGood = 0;
+            fcBad = 0;
+            fcDone = false;
+            document.getElementById('fc-scene').style.display = 'block';
+            document.getElementById('fc-controls').style.display = 'flex';
+            document.getElementById('fc-summary').classList.remove('show');
+            fcRenderCard();
+        }
+
+        function borrarHistorial() {
+            localStorage.removeItem('fcTotalGood');
+            localStorage.removeItem('fcTotalBad');
+            fcUpdateStats();
+        }
+
+        // ============================================================
+        //  HERRAMIENTAS: Carga nuclear efectiva
+        // ============================================================
+        function calcularZef() {
+            const Z = parseInt(document.getElementById('z-zef').value);
+            const sigma = parseInt(document.getElementById('sigma-zef').value);
+            const res = document.getElementById('resultado-zef');
+            if (isNaN(Z) || isNaN(sigma) || Z < 1 || sigma < 0 || sigma >= Z) {
+                res.innerHTML = '<span style="color:#f44336;">⚠️ Ingresa valores válidos: Z ≥ 1, 0 ≤ σ < Z.</span>';
+                res.classList.add('show');
+                return;
+            }
+            const zef = Z - sigma;
+            res.innerHTML = '<strong>Z<sub>ef</sub> = ' + Z + ' - ' + sigma + ' = ' + zef + '</strong><br>' +
+                'La carga nuclear efectiva es <strong>' + zef + '</strong>.';
+            res.classList.add('show');
+        }
+
+        // ============================================================
+        //  HERRAMIENTAS: Configuración electrónica (simplificada)
+        // ============================================================
+        function mostrarConfig() {
+            const Z = parseInt(document.getElementById('z-config').value);
+            const res = document.getElementById('resultado-config');
+            if (isNaN(Z) || Z < 1 || Z > 118) {
+                res.innerHTML = '<span style="color:#f44336;">⚠️ Ingresa un número entre 1 y 118.</span>';
+                res.classList.add('show');
+                return;
+            }
+            // Orden de llenado (aufbau)
+            const orden = [
+                '1s', '2s', '2p', '3s', '3p', '4s', '3d', '4p', '5s', '4d', '5p',
+                '6s', '4f', '5d', '6p', '7s', '5f', '6d', '7p'
+            ];
+            const capacidades = { s: 2, p: 6, d: 10, f: 14 };
+            let electrones = Z;
+            let config = [];
+            let i = 0;
+            while (electrones > 0 && i < orden.length) {
+                const orbital = orden[i];
+                const tipo = orbital.slice(-1);
+                const max = capacidades[tipo];
+                const ocupar = Math.min(electrones, max);
+                config.push(orbital + ocupar);
+                electrones -= ocupar;
+                i++;
+            }
+            if (electrones > 0) {
+                res.innerHTML = '⚠️ No se pudo asignar todos los electrones (Z muy alto).';
+            } else {
+                const configStr = config.join(' ');
+                // Obtener gas noble anterior y kernel
+                const nobles = [
+                    { z: 2, sym: 'He' }, { z: 10, sym: 'Ne' }, { z: 18, sym: 'Ar' },
+                    { z: 36, sym: 'Kr' }, { z: 54, sym: 'Xe' }, { z: 86, sym: 'Rn' }
+                ];
+                let nobleAnterior = '';
+                let nobleZ = 0;
+                for (let n of nobles) {
+                    if (n.z < Z) {
+                        nobleAnterior = n.sym;
+                        nobleZ = n.z;
+                    } else break;
+                }
+                let kernel = '';
+                if (nobleAnterior) {
+                    // Reconstruir la configuración kernel: quitar la parte del gas noble
+                    let configSimple = configStr;
+                    // (Esto es una simplificación; en realidad se escribe [Gas] + el resto)
+                    // Como es una herramienta educativa, mostramos ambas.
+                    kernel = '[' + nobleAnterior + '] ';
+                    // Calcular el resto de electrones después del gas noble
+                    let restantes = Z - nobleZ;
+                    let restoConfig = [];
+                    let idx = 0;
+                    let temp = restantes;
+                    while (temp > 0 && idx < orden.length) {
+                        const orb = orden[idx];
+                        const tipo = orb.slice(-1);
+                        const max = capacidades[tipo];
+                        const ocupar = Math.min(temp, max);
+                        if (ocupar > 0) restoConfig.push(orb + ocupar);
+                        temp -= ocupar;
+                        idx++;
+                    }
+                    kernel += restoConfig.join(' ');
+                }
+                let html = '<strong>Configuración desarrollada:</strong> ' + configStr;
+                if (kernel) html += '<br><strong>Configuración kernel:</strong> ' + kernel;
+                res.innerHTML = html;
+            }
+            res.classList.add('show');
+        }
+
+        // ============================================================
+        //  HERRAMIENTAS: Buscador de elementos (con datos ampliados)
+        // ============================================================
+        const elementos = {
+            1: { simbolo: 'H', nombre: 'Hidrógeno', grupo: 1, periodo: 1, tipo: 'No metal' },
+            2: { simbolo: 'He', nombre: 'Helio', grupo: 18, periodo: 1, tipo: 'Gas noble' },
+            3: { simbolo: 'Li', nombre: 'Litio', grupo: 1, periodo: 2, tipo: 'Metal' },
+            4: { simbolo: 'Be', nombre: 'Berilio', grupo: 2, periodo: 2, tipo: 'Metal' },
+            5: { simbolo: 'B', nombre: 'Boro', grupo: 13, periodo: 2, tipo: 'Metaloide' },
+            6: { simbolo: 'C', nombre: 'Carbono', grupo: 14, periodo: 2, tipo: 'No metal' },
+            7: { simbolo: 'N', nombre: 'Nitrógeno', grupo: 15, periodo: 2, tipo: 'No metal' },
+            8: { simbolo: 'O', nombre: 'Oxígeno', grupo: 16, periodo: 2, tipo: 'No metal' },
+            9: { simbolo: 'F', nombre: 'Flúor', grupo: 17, periodo: 2, tipo: 'No metal' },
+            10: { simbolo: 'Ne', nombre: 'Neón', grupo: 18, periodo: 2, tipo: 'Gas noble' },
+            11: { simbolo: 'Na', nombre: 'Sodio', grupo: 1, periodo: 3, tipo: 'Metal' },
+            12: { simbolo: 'Mg', nombre: 'Magnesio', grupo: 2, periodo: 3, tipo: 'Metal' },
+            13: { simbolo: 'Al', nombre: 'Aluminio', grupo: 13, periodo: 3, tipo: 'Metal' },
+            14: { simbolo: 'Si', nombre: 'Silicio', grupo: 14, periodo: 3, tipo: 'Metaloide' },
+            15: { simbolo: 'P', nombre: 'Fósforo', grupo: 15, periodo: 3, tipo: 'No metal' },
+            16: { simbolo: 'S', nombre: 'Azufre', grupo: 16, periodo: 3, tipo: 'No metal' },
+            17: { simbolo: 'Cl', nombre: 'Cloro', grupo: 17, periodo: 3, tipo: 'No metal' },
+            18: { simbolo: 'Ar', nombre: 'Argón', grupo: 18, periodo: 3, tipo: 'Gas noble' },
+            19: { simbolo: 'K', nombre: 'Potasio', grupo: 1, periodo: 4, tipo: 'Metal' },
+            20: { simbolo: 'Ca', nombre: 'Calcio', grupo: 2, periodo: 4, tipo: 'Metal' },
+            26: { simbolo: 'Fe', nombre: 'Hierro', grupo: 8, periodo: 4, tipo: 'Metal' },
+            29: { simbolo: 'Cu', nombre: 'Cobre', grupo: 11, periodo: 4, tipo: 'Metal' },
+            30: { simbolo: 'Zn', nombre: 'Zinc', grupo: 12, periodo: 4, tipo: 'Metal' },
+            47: { simbolo: 'Ag', nombre: 'Plata', grupo: 11, periodo: 5, tipo: 'Metal' },
+            53: { simbolo: 'I', nombre: 'Yodo', grupo: 17, periodo: 5, tipo: 'No metal' },
+            79: { simbolo: 'Au', nombre: 'Oro', grupo: 11, periodo: 6, tipo: 'Metal' },
+            82: { simbolo: 'Pb', nombre: 'Plomo', grupo: 14, periodo: 6, tipo: 'Metal' },
+        };
+
+        function buscarElemento() {
+            const Z = parseInt(document.getElementById('z-buscar').value);
+            const res = document.getElementById('resultado-elemento');
+            if (isNaN(Z) || Z < 1 || Z > 118) {
+                res.innerHTML = '<span style="color:#f44336;">⚠️ Ingresa un número entre 1 y 118.</span>';
+                res.classList.add('show');
+                return;
+            }
+            const el = elementos[Z];
+            if (el) {
+                res.innerHTML = '<strong>Elemento encontrado:</strong><br>' +
+                    '🔹 Z = ' + Z +
+                    '<br>🔸 Símbolo: <strong>' + el.simbolo + '</strong>' +
+                    '<br>🔹 Nombre: ' + el.nombre +
+                    '<br>🔸 Grupo: ' + el.grupo + ' (IA - ' + (el.grupo <= 2 ? 'metal' : (el.grupo >= 13 && el.grupo <=
+                    18 ? 'no metal' : 'metal de transición')) + ')' +
+                    '<br>🔹 Periodo: ' + el.periodo +
+                    '<br>🔸 Clasificación: ' + el.tipo;
+            } else {
+                res.innerHTML = '⚠️ No se encontró información para Z = ' + Z +
+                    '. Consulta la tabla periódica completa.';
+            }
+            res.classList.add('show');
+        }
+
+        // ============================================================
+        //  QUIZ (15 preguntas sobre clase 2, se muestran 5 al azar)
+        // ============================================================
+        const preguntasBase = [{
+            pregunta: '¿Cuál es la configuración electrónica kernel del potasio (Z=19)?',
+            opciones: ['[Ne] 4s¹', '[Ar] 4s¹', '[Kr] 4s¹', '[Xe] 4s¹'],
+            correcta: 1,
+            explicacion: 'El gas noble anterior al potasio es el Argón (Z=18), por lo tanto [Ar] 4s¹.'
+        }, {
+            pregunta: '¿Qué principio establece que los electrones ocupan primero los orbitales de menor energía?',
+            opciones: ['Principio de Hund', 'Principio de Aufbau', 'Principio de Pauli',
+                'Principio de incertidumbre'
+            ],
+            correcta: 1,
+            explicacion: 'El principio de Aufbau (construcción progresiva) rige el orden de llenado.'
+        }, {
+            pregunta: '¿Qué propiedad periódica aumenta de izquierda a derecha en un periodo?',
+            opciones: ['Radio atómico', 'Carácter metálico', 'Electronegatividad', 'Radio iónico'],
+            correcta: 2,
+            explicacion: 'La electronegatividad aumenta hacia la derecha debido al aumento de Z<sub>ef</sub>.'
+        }, {
+            pregunta: 'El ion Ca²⁺ tiene la misma configuración electrónica que:',
+            opciones: ['Ar', 'K', 'Cl⁻', 'S²⁻'],
+            correcta: 0,
+            explicacion: 'Ca²⁺ (Z=20) pierde 2 electrones, quedando con 18 electrones, igual que el Argón (Z=18).'
+        }, {
+            pregunta: '¿Qué es la carga nuclear efectiva (Z<sub>ef</sub>)?',
+            opciones: ['La carga total del núcleo', 'La carga que siente un electrón de valencia',
+                'La carga de los electrones internos', 'La carga de un ion'
+            ],
+            correcta: 1,
+            explicacion: 'Z<sub>ef</sub> es la carga neta que experimenta un electrón de valencia, considerando el apantallamiento.'
+        }, {
+            pregunta: '¿Cómo varía el radio atómico al bajar en un grupo?',
+            opciones: ['Aumenta', 'Disminuye', 'Permanece igual', 'Varía aleatoriamente'],
+            correcta: 0,
+            explicacion: 'Al bajar en un grupo se añaden niveles de energía, aumentando el radio atómico.'
+        }, {
+            pregunta: '¿Qué elemento es esencial para la síntesis de hormonas tiroideas?',
+            opciones: ['Hierro', 'Yodo', 'Zinc', 'Cobre'],
+            correcta: 1,
+            explicacion: 'El yodo es componente de las hormonas tiroideas T3 y T4.'
+        }, {
+            pregunta: '¿Cuál de los siguientes iones es más grande que su átomo neutro?',
+            opciones: ['Na⁺', 'Mg²⁺', 'Cl⁻', 'Ca²⁺'],
+            correcta: 2,
+            explicacion: 'Los aniones son más grandes que el átomo neutro por la menor Z<sub>ef</sub> y mayor repulsión.'
+        }, {
+            pregunta: '¿En qué periodo se encuentra el elemento con configuración [Kr] 5s² 4d¹⁰ 5p⁵?',
+            opciones: ['Periodo 4', 'Periodo 5', 'Periodo 6', 'Periodo 7'],
+            correcta: 1,
+            explicacion: 'El último nivel es n=5 (5s y 5p), por lo tanto está en el periodo 5.'
+        }, {
+            pregunta: '¿Qué grupo pertenece un elemento cuya configuración termina en 4s² 3d⁶?',
+            opciones: ['Grupo 6', 'Grupo 8', 'Grupo 12', 'Grupo 16'],
+            correcta: 1,
+            explicacion: 'Para metales de transición, el grupo se determina por (n-1)d + ns. 3d⁶ + 4s² = 8 electrones de valencia → grupo 8 (hierro).'
+        }, {
+            pregunta: '¿Qué elemento es el más electronegativo de la tabla periódica?',
+            opciones: ['Oxígeno', 'Flúor', 'Cloro', 'Nitrógeno'],
+            correcta: 1,
+            explicacion: 'El flúor (F) es el elemento con mayor electronegatividad (4.0 en la escala de Pauling).'
+        }, {
+            pregunta: '¿Qué principio se aplica para distribuir electrones en orbitales de igual energía?',
+            opciones: ['Principio de Aufbau', 'Principio de Hund', 'Principio de Pauli',
+                'Principio de incertidumbre'
+            ],
+            correcta: 1,
+            explicacion: 'El principio de Hund establece que los electrones se aparean solo después de haber ocupado todos los orbitales de igual energía con un electrón.'
+        }, {
+            pregunta: 'El ion Fe³⁺ tiene la siguiente configuración electrónica:',
+            opciones: ['[Ar] 4s² 3d³', '[Ar] 4s⁰ 3d⁵', '[Ar] 4s² 3d⁵', '[Ar] 4s⁰ 3d³'],
+            correcta: 1,
+            explicacion: 'Fe (Z=26) tiene [Ar] 4s² 3d⁶. Al perder 3 electrones, primero pierde los 4s², luego uno de 3d, quedando [Ar] 3d⁵.'
+        }, {
+            pregunta: '¿Qué elemento es un metaloide utilizado en la industria de semiconductores?',
+            opciones: ['Silicio (Si)', 'Sodio (Na)', 'Cloro (Cl)', 'Argón (Ar)'],
+            correcta: 0,
+            explicacion: 'El silicio es un metaloide ampliamente usado en la electrónica como semiconductor.'
+        }, {
+            pregunta: '¿Cuál de los siguientes no es un elemento traza esencial para el ser humano?',
+            opciones: ['Mn', 'Zn', 'Pb', 'Cu'],
+            correcta: 2,
+            explicacion: 'El plomo (Pb) es tóxico y no es esencial; los otros son micronutrientes necesarios.'
+        }];
+
+        let preguntasActuales = [];
+        let quizIndex = 0;
+        let quizAciertos = 0;
+        let quizRespondidas = 0;
+
+        function cargarQuiz() {
+            const shuffled = [...preguntasBase];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            preguntasActuales = shuffled.slice(0, 5);
+            quizIndex = 0;
+            quizAciertos = 0;
+            quizRespondidas = 0;
+            mostrarPregunta();
+        }
+
+        function mostrarPregunta() {
+            const container = document.getElementById('quiz-container');
+            if (quizIndex >= preguntasActuales.length) {
+                const total = preguntasActuales.length;
+                const pct = Math.round(quizAciertos / total * 100);
+                let msg = pct >= 80 ? '🎉 ¡Excelente!' : (pct >= 60 ? '💪 ¡Bien, sigue practicando!' :
+                    '📚 Revisa los conceptos y vuelve a intentarlo.');
+                container.innerHTML = `
+                    <div class="quiz-container" style="text-align:center;">
+                        <h3 style="color:var(--upch-gold);">¡Ronda completada!</h3>
+                        <p style="font-size:1.5rem;">✅ ${quizAciertos} de ${total} correctas</p>
+                        <p>Precisión: ${pct}%</p>
+                        <p>${msg}</p>
+                        <button class="calc-button" onclick="cargarQuiz()" style="margin-top:1.5rem;">🔄 Nueva ronda</button>
+                    </div>
+                `;
+                return;
+            }
+
+            const q = preguntasActuales[quizIndex];
+            const opcionesHtml = q.opciones.map((opt, idx) =>
+                `<button class="quiz-option" onclick="responderPregunta(${quizIndex}, ${idx}, this)">${opt}</button>`
+            ).join('');
+
+            container.innerHTML = `
+                <div class="quiz-container">
+                    <div class="quiz-progress">
+                        <span>Pregunta ${quizIndex+1} de ${preguntasActuales.length}</span>
+                        <span>✅ ${quizAciertos} correctas</span>
+                    </div>
+                    <div class="quiz-question">${q.pregunta}</div>
+                    <div class="quiz-options">${opcionesHtml}</div>
+                    <div class="quiz-feedback" id="feedback-actual"></div>
+                </div>
+            `;
+        }
+
+        function responderPregunta(idx, opcionSeleccionada, btn) {
+            const q = preguntasActuales[idx];
+            const fb = document.getElementById('feedback-actual');
+            const opts = btn.parentElement.querySelectorAll('.quiz-option');
+            opts.forEach(o => o.disabled = true);
+
+            const correcta = q.correcta;
+            if (opcionSeleccionada === correcta) {
+                btn.classList.add('correct');
+                quizAciertos++;
+                fb.innerHTML = '<span style="color:#4caf50;font-weight:bold;">✅ ¡Correcto!</span> ' + q.explicacion;
+                fb.style.background = '#e8f5e9';
+            } else {
+                btn.classList.add('incorrect');
+                opts[correcta].classList.add('correct');
+                fb.innerHTML = '<span style="color:#f44336;font-weight:bold;">❌ Incorrecto</span> ' + q.explicacion;
+                fb.style.background = '#ffebee';
+            }
+            fb.style.display = 'block';
+            quizRespondidas++;
+
+            setTimeout(() => {
+                quizIndex++;
+                mostrarPregunta();
+            }, 2000);
+        }
+
+        // ============================================================
+        //  INICIALIZACIÓN
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            fcRenderCard();
+            cargarQuiz();
+            // Mostrar primera subpestaña de herramientas
+            document.querySelector('#herramientas-tabs .tab.active')?.click();
+        });
+
+        console.log('=== IMÁGENES PNG REQUERIDAS ===');
+        console.log('1. logo-upch.png          → Logo de la universidad (cabecera)');
+        console.log('2. config-electronica.png → Diagrama de configuración electrónica (orbitales)');
+        console.log('3. tabla-periodica.png    → Tabla periódica actualizada');
+        console.log('4. propiedades-tendencias.png → Gráfico de tendencias periódicas');
+        console.log('5. aplicaciones-salud.png → Ilustración de aplicaciones en salud (iones, fármacos, etc.)');
+        console.log('Coloca estos archivos en la misma carpeta que este HTML.');
+    </script>
+</body>
+</html>
